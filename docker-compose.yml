@@ -1,0 +1,14 @@
+services:
+  app:
+    build: .
+    ports: ["8080:8080"]
+    environment:
+      JYOTISH_ENV: local
+      FIRESTORE_EMULATOR_HOST: firestore:8081
+    depends_on: [firestore]
+
+  # Used from Phase 2 (sessions). Harmless until then.
+  firestore:
+    image: gcr.io/google.com/cloudsdktool/google-cloud-cli:emulators
+    command: gcloud emulators firestore start --host-port=0.0.0.0:8081 --project=jyotish-local
+    ports: ["8081:8081"]

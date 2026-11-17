@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card">
+  <h1>Understand your birth chart</h1>
+  <p>Enter your birth details or upload a kundli. You'll get a reading, then up to
+     {{ max_questions }} follow-up questions.</p>
+
+  <form class="birth-form" onsubmit="return false;">
+    <label>Date of birth <input type="date" name="dob" required></label>
+    <label>Time of birth <input type="time" name="tob" required></label>
+    <label>Place of birth <input type="text" name="place" placeholder="e.g. Udupi, Karnataka" required></label>
+    <label>Your question (optional)
+      <textarea name="question" rows="3" placeholder="e.g. What does 2027 hold for my career?"></textarea>
+    </label>
+    <button type="submit" disabled title="Chart engine arrives in Phase 1">Get my reading</button>
+  </form>
+  <p class="note">Phase 0 skeleton: the chart engine and readings are coming in Phases 1–2.</p>
+</section>
+{% endblock %}

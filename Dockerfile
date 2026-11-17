@@ -11,7 +11,10 @@ RUN uv sync --no-dev
 
 # ---- runtime stage: slim, non-root, no build tools ----
 FROM python:3.12-slim AS runtime
-RUN useradd --uid 10001 --create-home appuser
+# Apply Debian security fixes newer than the base image (keeps the Trivy gate green)
+RUN apt-get update && apt-get upgrade -y --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/* \
+    && useradd --uid 10001 --create-home appuser
 WORKDIR /app
 COPY --from=build --chown=appuser:appuser /app /app
 ENV PATH="/app/.venv/bin:$PATH" PYTHONUNBUFFERED=1 PORT=8080

@@ -4,7 +4,7 @@ FROM python:3.12-slim AS build
 COPY --from=ghcr.io/astral-sh/uv:0.5 /uv /usr/local/bin/uv
 WORKDIR /app
 ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
-COPY pyproject.toml uv.lock* ./
+COPY pyproject.toml uv.lock* README.md LICENSE ./
 RUN uv sync --no-dev --no-install-project
 COPY app ./app
 RUN uv sync --no-dev
